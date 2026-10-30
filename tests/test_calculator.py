@@ -12,11 +12,15 @@ def test_refund_by_totals_with_tax():
 
 
 def test_refund_by_items_without_tax():
-    assert refund_by_items([2.00, 2.50, 1.00], 10.00, False, 1.0825) == pytest.approx(4.50)
+    assert refund_by_items([2.00, 2.50, 1.00], 10.00, False, 1.0825) == pytest.approx(
+        4.50
+    )
 
 
 def test_refund_by_items_with_tax():
-    assert refund_by_items([2.00, 2.50, 1.00], 10.00, True, 1.0825) == pytest.approx(4.87125)
+    assert refund_by_items([2.00, 2.50, 1.00], 10.00, True, 1.0825) == pytest.approx(
+        4.87125
+    )
 
 
 def test_combo_upgrade_cost():
