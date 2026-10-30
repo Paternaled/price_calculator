@@ -19,7 +19,9 @@ def refund_by_items(
     return refund
 
 
-def combo_upgrade_cost(combo_price: float, sandwich: float, side: float) -> float:
+def combo_upgrade_cost(
+    combo_price: float, sandwich: float, side: float
+) -> float:
     """Return the amount to charge to upgrade a sandwich and side to a full combo."""
     price_of_items = sandwich + side
     return combo_price - price_of_items
