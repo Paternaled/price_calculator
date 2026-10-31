@@ -12,7 +12,7 @@ def print_menu():
     print("1. Find price by totals")
     print("2. Find price by items")
     print("3. Change tax settings")
-    print("4. Find price difference for a combo")
+    print("4. Find combo upgrade cost")
     print("5. Exit program")
 
 
@@ -60,9 +60,10 @@ def price_by_items():
 
 def find_combo_upgrade_cost():
     combo_price = validate_num("Enter the price of the desired combo: $")
-    item1 = validate_num("Enter the price of item 1: $")
-    item2 = validate_num("Enter the price of item 2: $")
-    return f"Price difference: ${combo_upgrade_cost(combo_price, item1, item2):.2f}"
+    sandwich = validate_num("Enter the price of the sandwich: $")
+    side = validate_num("Enter the price of the side: $")
+    cost = combo_upgrade_cost(combo_price, sandwich, side)
+    return f"Upgrade cost: ${cost:.2f}"
 
 
 # we determine user input
@@ -89,12 +90,8 @@ def main_menu_selection():
             )
 
         elif settings_input == "2":
-            if tax == True:
-                tax = False
-                print("Tax has been toggled off")
-            elif tax == False:
-                tax = True
-                print("Tax has been toggled on")
+            tax = not tax
+            print(f"Tax is now {'on' if tax else 'off'}")
 
         elif settings_input == "3":
             result = None
@@ -118,7 +115,7 @@ def main_menu_selection():
 while True:
     print_menu()
     result = main_menu_selection()
-    if result == None:
+    if result is None:
         continue
     else:
         print(result)
