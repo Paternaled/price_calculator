@@ -112,11 +112,12 @@ def main_menu_selection():
 
 
 # our running loop
-while True:
-    print_menu()
-    result = main_menu_selection()
-    if result is None:
-        continue
-    else:
-        print(result)
-        
+def main():
+    while True:
+        print_menu()
+        result = main_menu_selection()
+        if result is not None:
+            print(result)
+
+if __name__ == "__main__":
+    main()
