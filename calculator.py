@@ -23,3 +23,13 @@ def combo_upgrade_cost(combo_price: float, sandwich: float, side: float) -> floa
     """Return the amount to charge to upgrade a sandwich and side to a full combo."""
     price_of_items = sandwich + side
     return combo_price - price_of_items
+
+
+def parse_prices(text: str) -> list[float]:
+    """Return a list of prices from comma-separated text, like "2.00, 2.50"."""
+    pieces = text.split(",")
+    item_prices = []
+    if text.strip():
+        for piece in pieces:
+            item_prices.append(float(piece))
+    return item_prices
