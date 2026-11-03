@@ -30,12 +30,20 @@ with tab_items:
     )
     pieces = prices_text.split(",")
     item_prices = []
+    valid = True
     if prices_text.strip():
-        for piece in pieces:
-            item_prices.append(float(piece))
-    original = st.number_input("Original total ($)", key="items_total")
-    refund = refund_by_items(item_prices, original, tax_on, tax_rate)
-    st.metric("Refund", f"{refund:.2f}")
+        try:
+            for piece in pieces:
+                item_prices.append(float(piece))
+        except ValueError:
+            st.error("Enter prices as numbers separated by commas, like 2.00, 2.50")
+            valid = False
+    original = st.number_input(
+        "Original total ($)", min_value=0.0, step=0.01, key="items_total"
+    )
+    if valid:
+        refund = refund_by_items(item_prices, original, tax_on, tax_rate)
+        st.metric("Refund", f"${refund:.2f}")
 
 with tab_combo:
     combo_price = st.number_input(
