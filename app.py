@@ -1,6 +1,11 @@
 import streamlit as st
 
-from calculator import combo_upgrade_cost, refund_by_items, refund_by_totals
+from calculator import (
+    combo_upgrade_cost,
+    refund_by_items,
+    refund_by_totals,
+    parse_prices,
+)
 
 st.title("Price Calculator")
 
@@ -28,16 +33,12 @@ with tab_items:
     prices_text = st.text_input(
         "Correct item prices, separated by commas", key="item_prices"
     )
-    pieces = prices_text.split(",")
-    item_prices = []
     valid = True
-    if prices_text.strip():
-        try:
-            for piece in pieces:
-                item_prices.append(float(piece))
-        except ValueError:
-            st.error("Enter prices as numbers separated by commas, like 2.00, 2.50")
-            valid = False
+    try:
+        item_prices = parse_prices(prices_text)
+    except ValueError:
+        st.error("Enter prices as numbers separated by commas, like 2.00 or 2.50")
+        valid = False
     original = st.number_input(
         "Original total ($)", min_value=0.0, step=0.01, key="items_total"
     )
