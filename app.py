@@ -23,6 +23,20 @@ with tab_totals:
     refund = refund_by_totals(original, desired, tax_on, tax_rate)
     st.metric("Refund", f"${refund:.2f}")
 
+
+with tab_items:
+    prices_text = st.text_input(
+        "Correct item prices, separated by commas", key="item_prices"
+    )
+    pieces = prices_text.split(",")
+    item_prices = []
+    if prices_text.strip():
+        for piece in pieces:
+            item_prices.append(float(piece))
+    original = st.number_input("Original total ($)", key="items_total")
+    refund = refund_by_items(item_prices, original, tax_on, tax_rate)
+    st.metric("Refund", f"{refund:.2f}")
+
 with tab_combo:
     combo_price = st.number_input(
         "Combo price ($)", min_value=0.0, step=0.01, key="combo_price"
